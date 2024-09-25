@@ -8,7 +8,7 @@
         @if(!$antrian)
             <div class="alert alert-danger alert-dismissible">
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
-                Data yang Anda cari tidak ditemukan.
+                Data yang Anda cari tidak ditemukann.
             </div>
         @else
             <table class="table table-bordered table-striped table-hover table-sm">

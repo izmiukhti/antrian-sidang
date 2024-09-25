@@ -28,7 +28,7 @@ class User extends Authenticatable
 
     public function antrian()
     {
-        return $this->hasMany(Antrian::class, 'antrian_id');
+        return $this->hasMany(Antrian::class, 'user_id', 'user_id');
     }
 
     /**

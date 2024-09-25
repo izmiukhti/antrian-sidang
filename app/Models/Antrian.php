@@ -23,13 +23,12 @@ class Antrian extends Model
     // Relasi ke model User
     public function users()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     // Relasi ke model JenisSidang
     public function jenis_sidang()
     {
-        return $this->belongsTo(JenisSidang::class, 'jenis_sidang_id');
+        return $this->belongsTo(JenisSidang::class, 'jenis_sidang_id', 'jenis_sidang_id');
     }
 }
-

@@ -16,4 +16,3 @@ class JenisSidangFactory extends Factory
         ];
     }
 }
-

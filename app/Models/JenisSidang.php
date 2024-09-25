@@ -19,7 +19,7 @@ class JenisSidang extends Model
 
     public function antrian()
     {
-        return $this->hasMany(Antrian::class, 'antrian_id');
+        return $this->hasMany(Antrian::class, 'jenis_sidang_id', 'jenis_sidang_id');
     }
 
     public function customers()

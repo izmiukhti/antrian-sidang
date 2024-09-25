@@ -19,4 +19,3 @@ class AdminMiddleware
         return redirect('/user/dashboard');
     }
 }
-

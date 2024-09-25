@@ -17,11 +17,18 @@ class Customers extends Model
         'notlp',
         'jenis_sidang_id',
         'ktp',
-        'kk'
+        'kk',
+        'user_id',
+        'jadwal_sidang'
     ];
 
     public function jenis_sidang()
     {
         return $this->belongsTo(JenisSidang::class, 'jenis_sidang_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(JenisSidang::class, 'user_id');
     }
 }

@@ -18,11 +18,8 @@ class WelcomeController extends Controller
         // Cek role user dan tampilkan dashboard yang sesuai
         if ($user->role === 'admin') {
             return view('admin.dashboard', ['user' => $user]);
-        } elseif ($user->role === 'user') {
-            return view('user.dashboard', ['user' => $user]);
         } else {
-            // Jika role tidak diketahui, bisa redirect atau tampilkan pesan
-            return redirect()->route('dashboard')->with('error', 'Role tidak dikenali.');
+            return view('user.dashboard', ['user' => $user]);
         }
     }
 }

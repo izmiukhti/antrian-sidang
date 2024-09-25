@@ -43,11 +43,12 @@
             },
             columns: [
                 { data: 'DT_RowIndex', orderable: false, searchable: false }, // Nomor urut
-                { data: 'nama_pemohon', name: 'users.name' }, // Nama pemohon dari relasi users
+                { data: 'nama_pemohon', name: 'customers.nama' }, // Nama pemohon dari relasi users
                 { data: 'nomor_antrian', name: 'nomor_antrian' },
+                { data: 'email', name: 'customers.email' },
                 { data: 'status_sidang', name: 'status_sidang' },
-                { data: 'jadwal_sidang', name: 'jadwal_sidang' },
-                { data: 'jenis_sidang', name: 'jenis_sidang.nama_jenis_sidang' }, // Nama jenis sidang dari relasi
+                { data: 'jadwal_sidang', name: 'customers.jadwal_sidang' },
+                { data: 'jenis_sidang', name: 'customers.jenis_sidang.nama_jenis_sidang' }, // Nama jenis sidang dari relasi
                 { data: 'aksi', orderable: false, searchable: false } // Tombol aksi
             ],
         });

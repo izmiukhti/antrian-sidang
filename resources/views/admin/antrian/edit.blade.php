@@ -21,7 +21,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('antrian.update', $antrian->antrian_id) }}" class="form-horizontal">
+        <form method="POST" action="{{ route('admin.antrian.update', $antrian->antrian_id) }}" class="form-horizontal">
             @csrf
             @method('PUT')
 
@@ -90,7 +90,7 @@
             <div class="form-group row">
                 <div class="col-10 offset-2">
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('antrian.index') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ route('admin.antrian.index') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </div>
         </form>

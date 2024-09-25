@@ -7,6 +7,7 @@ use App\Models\Antrian;
 use App\Models\JenisSidang;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class AntrianController extends Controller
@@ -86,28 +87,32 @@ class AntrianController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'nomor_antrian' => 'required|string|max:255',
-            'status_sidang' => 'required|string|max:255',
-            'jadwal_sidang' => 'required|date',
-            'user_id' => 'required|integer|exists:users,user_id',
-            'jenis_sidang_id' => 'required|integer|exists:jenis_sidang,jenis_sidang_id',
-        ]);
-        try {
-            //Membuat instance baru menggunakan create
+{
+    // Validasi form input
+    $validatedData = $request->validate([
+        'nomor_antrian' => 'required|string|max:255',
+        'jadwal_sidang' => 'required|date',
+        'jenis_sidang_id' => 'required|integer|exists:jenis_sidangs,jenis_sidang_id',
+    ]);
+
+    try {
+        // Dapatkan user_id dari session atau user yang login
+        $user_id = Auth::id(); // Pastikan user sudah login
+        
+        // Simpan data ke tabel antrians
         Antrian::create([
-                'nomor_antrian' => $validatedData['nomor_antrian'],
-                'status_sidang' => $validatedData['status_sidang'],
-                'jadwal_sidang' => $validatedData['jadwal_sidang'],
-                'user_id' => $validatedData['user_id'],
-                'jenis_sidang_id' => $validatedData['jenis_sidang_id'],
-            ]);
-            return redirect()->route('admin.antrian.index')->with('succes', 'Data berhasil ditambahkan');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan data: ' . $e->getMessage());
-        }
+            'nomor_antrian' => $validatedData['nomor_antrian'],
+            'status_sidang' => 'Pending', // Set default status
+            'jadwal_sidang' => $validatedData['jadwal_sidang'],
+            'user_id' => $user_id, // Ambil user_id dari session
+            'jenis_sidang_id' => $validatedData['jenis_sidang_id'],
+        ]);
+
+        return redirect()->route('customers.index')->with('success', 'Antrian berhasil dibuat');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
     }
+}
 
     /**
      * Display the specified resource.

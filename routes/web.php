@@ -22,7 +22,7 @@ Route::group(['prefix' => 'jenis_sidang'], function(){
     Route::post('/store', [JenisSidangController::class, 'store'])->name('jenis_sidang.store');
 });
 
-Route::get('/dashboard', function(){return view("dashboard");})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function(){return view("dashboard");})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,20 +47,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/list', [AntrianController::class, 'list'])->name('admin.antrian.list');
             Route::get('/create', [AntrianController::class, 'create'])->name('admin.antrian.create');
             Route::post('/store', [AntrianController::class, 'store'])->name('admin.antrian.store');
-            Route::get('/{antrian}', [AntrianController::class, 'show'])->name('admin.antrian.show');
-            Route::get('/{antrian}/edit', [AntrianController::class, 'edit'])->name('admin.antrian.edit');
-            Route::put('/{antrian}', [AntrianController::class, 'update'])->name('admin.antrian.update');
-            Route::delete('/{antrian}', [AntrianController::class, 'delete'])->name('admin.antrian.delete');
+            Route::get('/{id}', [AntrianController::class, 'show'])->name('admin.antrian.show');
+            Route::get('/{id}/edit', [AntrianController::class, 'edit'])->name('admin.antrian.edit');
+            Route::put('/{id}', [AntrianController::class, 'update'])->name('admin.antrian.update');
+            Route::delete('/{id}', [AntrianController::class, 'delete'])->name('admin.antrian.delete');
         });
     });
 
     // User Middleware
-    Route::middleware(UserMiddleware::class)->group(function () {
-        //Route::get('/user/dashboard', [WelcomeController::class, 'index'])->name('user.dashboard');
+    Route::prefix('user')->middleware(UserMiddleware::class)->group(function () {
+        Route::get('/dashboard', [WelcomeController::class, 'index'])->name('user.dashboard');
         Route::group(['prefix' => 'customers'], function(){
             Route::get('/', [CustomerController::class, 'index'])->name('user.customers.index');
+            Route::post('/about', [CustomerController::class, 'list'])->name('user.customers.about');
             Route::post('/list', [CustomerController::class, 'list'])->name('user.customers.list');
-            Route::get('/create', [CustomerController::class, 'create'])->name('user.customers.create');
+            Route::get('/form-pendaftaran', [CustomerController::class, 'create'])->name('user.customers.form-pendaftaran');
             Route::post('/customers', [CustomerController::class, 'store'])->name('user.customers.store');
             Route::get('/{customers}', [CustomerController::class, 'show'])->name('user.customers.show');
             Route::get('/{customers}/edit', [CustomerController::class, 'edit'])->name('user.customers.edit');
@@ -68,6 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('/{customers}', [CustomerController::class, 'delete'])->name('user.customers.delete');
         });
     });
+    
 });
 
 require __DIR__.'/auth.php';

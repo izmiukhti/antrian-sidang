@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id('customer_id');
@@ -17,24 +17,20 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('notlp');
             $table->string('ktp'); // Kolom untuk menyimpan path file KTP
-            $table->string('kk');  // Kolom untuk menyimpan path file KK
+            $table->string('kk'); // Kolom untuk menyimpan path file KK
+            $table->dateTime('jadwal_sidang'); // Ubah tipe menjadi date atau dateTime
             
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('jenis_sidang_id');
             $table->foreign('jenis_sidang_id')->references('jenis_sidang_id')->on('jenis_sidangs')->onDelete('cascade');
-            
 
             $table->timestamps();
 
             $table->string('role')->default('user');
-
-            });
-            
-            
+        });
     }
-    
 
     /**
      * Reverse the migrations.
